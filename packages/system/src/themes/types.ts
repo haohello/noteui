@@ -214,6 +214,7 @@ export interface ThemePrepared {
   fontFaces: FontFaces
   staticStyles: StaticStyles
   animations: { [key: string]: ThemeAnimation }
+  disableStyledSystemCache: boolean
 }
 
 export type ThemeComponentVariablesInput = {

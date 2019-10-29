@@ -15,6 +15,7 @@ import {
     ConfigStyleEx,
     TransformFn
 } from './types'
+import { ComponentStyleFunctionParam } from '../themes/types';
 
 export const merge = (a, b) => {
     let result = assign({}, a, b)
@@ -78,21 +79,24 @@ export const get =
 
 export const createParser = (config: ParserConfig): StyleFn => {
   const cache: ObjectOf<any> = {}
-  const parse: StyleFn = (props: ParserProps): CSS.Properties => {
+  const parse: StyleFn = (styleParam: ComponentStyleFunctionParam): CSS.Properties => {
     let styles: CSS.Properties = {}
     let shouldSort = false
-    const isCacheDisabled = props.theme && props.theme.disableStyledSystemCache
-  
+    const isCacheDisabled = styleParam.theme && styleParam.theme.disableStyledSystemCache
+    const props = styleParam.props
     for (const key in props) {
       if (!config[key]) continue
       const sx = config[key]
       const raw = props[key]
-      const scale = get(props.theme, sx.scale, sx.defaults)
+      /**
+       * Use resolved theme, component and prop vairables
+       */
+      const scale = get(styleParam.variables, sx.scale, sx.defaults)
   
       if (typeof raw === 'object') {
         cache.breakpoints =
           (!isCacheDisabled && cache.breakpoints) ||
-          get(props.theme, 'breakpoints', defaults.breakpoints)
+          get(styleParam.theme, 'breakpoints', defaults.breakpoints)
         if (Array.isArray(raw)) {
           cache.media = (!isCacheDisabled && cache.media) || [
             null,
@@ -100,21 +104,21 @@ export const createParser = (config: ParserConfig): StyleFn => {
           ]
           styles = merge(
             styles,
-            parseResponsiveStyle(cache.media, sx, scale, raw, props)
+            parseResponsiveStyle(cache.media, sx, scale, raw, styleParam)
           )
           continue
         }
         if (raw !== null) {
           styles = merge(
             styles,
-            parseResponsiveObject(cache.breakpoints, sx, scale, raw, props)
+            parseResponsiveObject(cache.breakpoints, sx, scale, raw, styleParam)
           )
           shouldSort = true
         }
         continue
       }
   
-      assign(styles, sxFunc(sx.properties, sx.transform, raw, scale, props))
+      assign(styles, sxFunc(sx.properties, sx.transform, raw, scale, styleParam))
     }
   
     // sort object-based responsive styles

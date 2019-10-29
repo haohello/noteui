@@ -6,6 +6,20 @@ import {
 } from './accessibility'
 import callable from './utils/callable'
 import { omit } from './utils/style'
+import { 
+  compose, 
+  space, 
+  color, 
+  layout, 
+  typography, 
+  flexbox, 
+  border, 
+  background,
+  position,
+  grid,
+  shadow
+} from './enhancers'
+import * as CSS from 'csstype'
 import cx from 'classnames'
 import * as React from 'react'
 import * as _ from 'lodash'
@@ -150,6 +164,20 @@ const renderComponent = <P extends {}>(
   const mergedStyles: ComponentSlotStylesPrepared = mergeComponentStyles(
     theme.componentStyles[displayName],
     withDebugId({ root: props.design }, 'props.design'),
+    withDebugId({ root: (styleParam: ComponentStyleFunctionParam): CSS.Properties  => {
+      return compose(
+        space, 
+        color, 
+        layout, 
+        typography, 
+        flexbox, 
+        border, 
+        background,
+        position,
+        grid,
+        shadow
+      )(styleParam)
+    } }, 'props.styled-system'),
     withDebugId({ root: props.styles }, 'props.styles'),
     withDebugId({ root: animationCSSProp }, 'props.animation'),
   )

@@ -2,18 +2,116 @@ import { system } from './core'
 import { Config } from './types'
 
 const config: Config = {
-  background: true,
-  backgroundImage: true,
-  backgroundSize: true,
-  backgroundPosition: true,
-  backgroundRepeat: true,
+  border: {
+    property: 'border',
+    scale: 'borders',
+  },
+  borderWidth: {
+    property: 'borderWidth',
+    scale: 'borderWidths',
+  },
+  borderStyle: {
+    property: 'borderStyle',
+    scale: 'borderStyles',
+  },
+  borderColor: {
+    property: 'borderColor',
+    scale: 'colors',
+  },
+  borderRadius: {
+    property: 'borderRadius',
+    scale: 'radii',
+  },
+  borderTop: {
+    property: 'borderTop',
+    scale: 'borders',
+  },
+  borderRight: {
+    property: 'borderRight',
+    scale: 'borders',
+  },
+  borderBottom: {
+    property: 'borderBottom',
+    scale: 'borders',
+  },
+  borderLeft: {
+    property: 'borderLeft',
+    scale: 'borders',
+  },
+  borderX: {
+    properties: ['borderLeft', 'borderRight'],
+    scale: 'borders',
+  },
+  borderY: {
+    properties: ['borderTop', 'borderBottom'],
+    scale: 'borders',
+  },
+  borderTopWidth: {
+    property: 'borderTopWidth',
+    scale: 'borderWidths',
+  },
+  borderTopColor: {
+    property: 'borderTopColor',
+    scale: 'colors',
+  },
+  borderTopStyle: {
+    property: 'borderTopStyle',
+    scale: 'borderStyles',
+  },
+  borderTopLeftRadius: {
+    property:'borderTopLeftRadius',
+    scale: 'radii',
+  },
+  borderTopRightRadius: {
+    property:'borderTopRightRadius',
+    scale: 'radii',
+  },
+  borderBottomWidth: {
+    property: 'borderBottomWidth',
+    scale: 'borderWidths',
+  },
+  borderBottomColor: {
+    property: 'borderBottomColor',
+    scale: 'colors',
+  },
+  borderBottomStyle: {
+    property: 'borderBottomStyle',
+    scale: 'borderStyles',
+  },
+  borderBottomLeftRadius: {
+    property:'borderBottomLeftRadius',
+    scale: 'radii',
+  },
+  borderBottomRightRadius: {
+    property:'borderBottomRightRadius',
+    scale: 'radii',
+  },
+  borderLeftWidth: {
+    property: 'borderLeftWidth',
+    scale: 'borderWidths',
+  },
+  borderLeftColor: {
+    property: 'borderLeftColor',
+    scale: 'colors',
+  },
+  borderLeftStyle: {
+    property: 'borderLeftStyle',
+    scale: 'borderStyles',
+  },
+  borderRightWidth: {
+    property: 'borderRightWidth',
+    scale: 'borderWidths',
+  },
+  borderRightColor: {
+    property: 'borderRightColor',
+    scale: 'colors',
+  },
+  borderRightStyle: {
+    property: 'borderRightStyle',
+    scale: 'borderStyles',
+  },
 }
 
-config.bgImage = config.backgroundImage
-config.bgSize = config.backgroundSize
-config.bgPosition = config.backgroundPosition
-config.bgRepeat = config.backgroundRepeat
+export const border = system(config)
 
-export const background = system(config)
-
-export default background
+export default border

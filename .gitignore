@@ -36,6 +36,10 @@ build/Release
 node_modules/
 jspm_packages/
 
+# build output
+dist
+tsconfig.tsbuildinfo
+
 # TypeScript v1 declaration files
 typings/
 

@@ -1,0 +1,33 @@
+{
+  "name": "@noteui/system",
+  "version": "0.0.1",
+  "scripts": {
+    "build": "yarn run clean && yarn run compile",
+    "clean": "rimraf ./dist && rimraf tsconfig.tsbuildinfo",
+    "compile": "tsc -b tsconfig.json"
+  },
+  "dependencies": {
+    "classnames": "^2.2.6",
+    "csstype": "^2.6.7",
+    "fast-memoize": "^2.5.1",
+    "fela": "^10.8.0",
+    "fela-plugin-embedded": "^10.8.0",
+    "fela-plugin-fallback-value": "^10.8.0",
+    "fela-plugin-placeholder-prefixer": "^10.8.0",
+    "fela-plugin-prefixer": "^10.8.0",
+    "fela-plugin-rtl": "^10.8.0",
+    "fela-utils": "^10.8.0",
+    "keyboard-key": "^1.0.4",
+    "lodash": "^4.17.15",
+    "object-assign": "^4.1.1",
+    "prop-types": "^15.7.2",
+    "react-fela": "^10.8.0"
+  },
+  "peerDependencies": {
+    "react": "^16.11.0",
+    "react-dom": "^16.11.0"
+  },
+  "devDependencies": {
+    "@types/node": "^12.11.7"
+  }
+}

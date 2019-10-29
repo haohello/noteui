@@ -1,0 +1,14 @@
+{
+  "name": "root",
+  "private": true,
+  "workspaces": [
+    "packages/*"
+  ],
+  "devDependencies": {
+    "@types/material-ui": "^0.21.7",
+    "beachball": "^1.14.1",
+    "lerna": "^3.16.4",
+    "rimraf": "^3.0.0",
+    "typescript": "^3.6.4"
+  }
+}

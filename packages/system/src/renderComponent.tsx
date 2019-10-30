@@ -163,7 +163,7 @@ const renderComponent = <P extends {}>(
   // Resolve styles using resolved variables, merge results, allow props.styles to override
   const mergedStyles: ComponentSlotStylesPrepared = mergeComponentStyles(
     theme.componentStyles[displayName],
-    withDebugId({ root: props.design }, 'props.design'),
+    // withDebugId({ root: props.design }, 'props.design'),
     withDebugId({ root: (styleParam: ComponentStyleFunctionParam): CSS.Properties  => {
       return compose(
         space, 
@@ -177,7 +177,7 @@ const renderComponent = <P extends {}>(
         grid,
         shadow
       )(styleParam)
-    } }, 'props.styled-system'),
+    } }, 'props.styledsystem'),
     withDebugId({ root: props.styles }, 'props.styles'),
     withDebugId({ root: animationCSSProp }, 'props.animation'),
   )

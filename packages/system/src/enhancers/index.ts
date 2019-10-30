@@ -17,3 +17,10 @@ export { position } from './position'
 export { grid } from './grid'
 export { shadow } from './shadow'
 export { default as boxShadow, default as textShadow } from './shadow'
+
+export {
+  variant,
+  buttonStyle,
+  textStyle,
+  colorStyle
+} from './variant'

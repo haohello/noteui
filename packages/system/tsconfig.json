@@ -5,7 +5,7 @@
       "rootDir": "./src"
     },
     "references": [
-      { "path":  "../logger" }
+      // { "path":  "../logger" }
     ],
     "exclude": [
       "node_modules",

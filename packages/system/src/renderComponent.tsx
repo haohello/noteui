@@ -7,6 +7,7 @@ import {
 import callable from './utils/callable'
 import { omit } from './utils/style'
 import { 
+  css,
   compose, 
   space, 
   color, 

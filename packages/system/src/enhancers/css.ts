@@ -176,7 +176,7 @@ export const responsive = styles => theme => {
   return next
 }
 
-export const css = args => (props = {}) => {
+export const css = args => (props: any = {}) => {
   const theme = { ...defaultTheme, ...(props.theme || props) }
   let result = {}
   const obj = typeof args === 'function' ? args(theme) : args

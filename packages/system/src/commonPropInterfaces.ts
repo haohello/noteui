@@ -5,12 +5,14 @@ import {
   AnimationProp,
   // ComponentDesign,
 } from './themes/types'
+import {
+  CmpStyleProp
+} from './enhancers/types'
 import { ReactChildren } from './types'
 
 export interface StyledComponentProps<P = any, V = any> {
   /** Additional CSS styles to apply to the component instance.  */
   styles?: ComponentSlotStyle<P, V>
-
   /** Override for theme site variables to allow modifications of component styling via themes. */
   variables?: ComponentVariablesInput
 }
@@ -22,6 +24,7 @@ export interface AnimatedComponentProps {
 
 export interface UIComponentProps<P = any, V = any>
   extends StyledComponentProps<P, V>,
+    CmpStyleProp,
     AnimatedComponentProps {
   /** Additional CSS class name(s) to apply.  */
   className?: string

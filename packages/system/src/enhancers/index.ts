@@ -6,6 +6,8 @@ export {
   system,
 } from './core'
 
+export { default as css } from './css'
+
 export { margin, padding, space } from './space'
 export { color } from './color'
 export { layout } from './layout'

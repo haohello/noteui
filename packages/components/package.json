@@ -1,5 +1,5 @@
 {
-  "name": "@noteui/core",
+  "name": "@noteui/components",
   "version": "0.0.1",
   "scripts": {
     "build": "yarn run clean && yarn run compile",
@@ -7,13 +7,6 @@
     "compile": "tsc -b tsconfig.json"
   },
   "dependencies": {
-    "classnames": "^2.2.6",
-    "csstype": "^2.6.7",
-    "fela": "^10.8.0",
-    "lodash": "^4.17.15",
-    "prop-types": "^15.7.2",
-    "react-fela": "^10.8.0",
-    "react-is": "^16.10.2"
   },
   "peerDependencies": {
     "react": "^16.10.2",

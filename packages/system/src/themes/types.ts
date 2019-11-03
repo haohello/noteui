@@ -41,7 +41,7 @@ export interface SiteVariablesPrepared extends SiteVariablesInput {
   radii?: ObjectOrArray<CSS.BorderRadiusProperty<{}>>
   shadows?: ObjectOrArray<CSS.BoxShadowProperty>
   zIndices?: ObjectOrArray<CSS.ZIndexProperty>
-  buttons?: ObjectOrArray<CSS.StandardProperties>
+  // buttons?: ObjectOrArray<CSS.StandardProperties>
   colorStyles?: ObjectOrArray<CSS.StandardProperties>
   textStyles?: ObjectOrArray<CSS.StandardProperties>
   disableStyledSystemCache?: boolean

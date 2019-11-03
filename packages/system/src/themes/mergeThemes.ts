@@ -37,6 +37,7 @@ export const emptyTheme: ThemePrepared = {
   staticStyles: [],
   icons: {},
   animations: {},
+  disableStyledSystemCache: false
 }
 
 // ----------------------------------------

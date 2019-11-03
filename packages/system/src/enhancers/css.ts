@@ -1,3 +1,7 @@
+import { ComponentStyleFunctionParam } from '../themes/types'
+import { buildEmptyThemeFn, buildStyleParamFn } from '../themes/util'
+import { merge } from './core'
+
 // based on https://github.com/developit/dlv
 export const get = (obj, key, def, p, undef) => {
   key = key && key.split ? key.split('.') : [key]
@@ -9,7 +13,7 @@ export const get = (obj, key, def, p, undef) => {
 
 const defaultBreakpoints = [40, 52, 64].map(n => n + 'em')
 
-const defaultTheme = {
+const defaultSiteVariables = {
   space: [0, 4, 8, 16, 32, 64, 128, 256, 512],
   fontSizes: [12, 14, 16, 20, 24, 32, 48, 64, 72],
 }
@@ -144,9 +148,9 @@ const transforms = [
   {}
 )
 
-export const responsive = styles => theme => {
+export const responsive = styles => (styleParam: ComponentStyleFunctionParam) => {
   const next = {}
-  const breakpoints = get(theme, 'breakpoints', defaultBreakpoints, 0, undefined)
+  const breakpoints = get(styleParam.theme, 'breakpoints', defaultBreakpoints, 0, undefined)
   const mediaQueries = [
     null,
     ...breakpoints.map(n => `@media screen and (min-width: ${n})`),
@@ -154,7 +158,7 @@ export const responsive = styles => theme => {
 
   for (const key in styles) {
     const value =
-      typeof styles[key] === 'function' ? styles[key](theme) : styles[key]
+      typeof styles[key] === 'function' ? styles[key](styleParam.variables) : styles[key]
 
     if (value == null) continue
     if (!Array.isArray(value)) {
@@ -176,30 +180,35 @@ export const responsive = styles => theme => {
   return next
 }
 
-export const css = args => (props: any = {}) => {
-  const theme = { ...defaultTheme, ...(props.theme || props) }
+export const css = args => (styleParam: ComponentStyleFunctionParam) => {
+  if (!styleParam) {
+    const theme = buildEmptyThemeFn()
+    styleParam = buildStyleParamFn({},theme, theme.siteVariables)
+  }
+  styleParam.variables = merge(defaultSiteVariables, styleParam.variables)
+  //const theme = { ...defaultTheme, ...(styleParam.theme || props) }
   let result = {}
-  const obj = typeof args === 'function' ? args(theme) : args
-  const styles = responsive(obj)(theme)
+  const obj = typeof args === 'function' ? args(styleParam.variables) : args
+  const styles = responsive(obj)(styleParam)
 
   for (const key in styles) {
     const x = styles[key]
-    const val = typeof x === 'function' ? x(theme) : x
+    const val = typeof x === 'function' ? x(styleParam.variables) : x
 
     if (key === 'variant') {
-      const variant = css(get(theme, val, undefined, 0, undefined))(theme)
+      const variant = css(get(styleParam.variables, val, undefined, 0, undefined))(styleParam)
       result = { ...result, ...variant }
       continue
     }
 
     if (val && typeof val === 'object') {
-      result[key] = css(val)(theme)
+      result[key] = css(val)(styleParam)
       continue
     }
 
     const prop = get(aliases, key, key, 0, undefined)
     const scaleName = get(scales, prop, prop, 0, undefined)
-    const scale = get(theme, scaleName, get(theme, prop, {}, 0, undefined), 0, undefined)
+    const scale = get(styleParam.variables, scaleName, get(styleParam.variables, prop, {}, 0, undefined), 0, undefined)
     const transform = get(transforms, prop, get, 0, undefined)
     const value = transform(scale, val, val)
 

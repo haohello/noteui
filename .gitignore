@@ -37,6 +37,7 @@ node_modules/
 jspm_packages/
 
 # build output
+.docz
 dist
 tsconfig.tsbuildinfo
 

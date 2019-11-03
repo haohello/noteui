@@ -1,4 +1,5 @@
 import * as CSS from 'csstype';
+import { ComponentStyleFunctionParam } from '../themes/types';
 
 export type RequireAtLeastOne<T, Keys extends keyof T = keyof T> =
     Pick<T, Exclude<keyof T, Keys>> 
@@ -44,7 +45,8 @@ export type CmpStylePropKeys = keyof CmpStyleProp
 
 export interface StyleFnBase {
     // (...args: any[]): any;
-    (props: ParserProps): CSS.Properties;
+    // (props: ParserProps): CSS.Properties;
+    (styleParam: ComponentStyleFunctionParam): CSS.Properties;
     config?: ParserConfig;
     propNames?: string[];
     cache?: object;
@@ -58,6 +60,7 @@ export interface StyleFn extends StyleFnBase, StyleFnEx {}
 
 export interface SxFn {
   (properties: Array<keyof CSS.Properties>,
+    isVariant: boolean,
     transform: TransformFn,
     value: TLengthStyledSystem, 
     scale: ResponsiveValue<TLengthStyledSystem>, 
@@ -77,13 +80,16 @@ export interface ConfigStyle {
     /** A string referencing a key in the `theme` object. */
     scale?: string;
     /** A fallback scale object for when there isn't one defined in the `theme` object. */
-    defaultScale?: Scale;
+    defaultScale?: Scale | ObjectOf<any>;
+
+    isVariant?: boolean; // will ignore the properties if this value is true
+
     /** A function to transform the raw value based on the scale. */
     transform?: (value: any, scale?: ResponsiveValue<TLengthStyledSystem>, _props?: ParserProps) => any;
 }
 
 export interface TransformFn {
-  (value: any, scale?: ResponsiveValue<TLengthStyledSystem>, _props?: ParserProps) : any;
+  (value: any, scale?: ResponsiveValue<TLengthStyledSystem>, styleParam?: ComponentStyleFunctionParam) : any;
 }
 
 export interface ConfigStyleEx {
@@ -92,6 +98,7 @@ export interface ConfigStyleEx {
    * assigned (overrides `property` when present).
    */
   properties?: Array<keyof CSS.Properties>;
+  isVariant?: boolean;
   /** A string referencing a key in the `theme` object. */
   scale?: string;
   /** A function to transform the raw value based on the scale. */
@@ -116,7 +123,7 @@ export interface VariantArgs {
     /** theme key for variant definitions */
     scale?: string;
     /** inline theme aware variants definitions  */
-    variants?: object;
+    variants?: ObjectOf<any>;
 }
 
 // export function variant(props: VariantArgs): (...args: any[]) => any;

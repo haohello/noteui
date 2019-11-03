@@ -4,11 +4,15 @@
   "scripts": {
     "build": "yarn run clean && yarn run compile",
     "clean": "rimraf ./dist && rimraf tsconfig.tsbuildinfo",
-    "compile": "tsc -b tsconfig.json"
+    "compile": "tsc -b tsconfig.json",
+    "docz:dev": "docz dev",
+    "docz:build": "docz build",
+    "test": "jest"
   },
   "dependencies": {
     "classnames": "^2.2.6",
     "csstype": "^2.6.7",
+    "docz": "^2.0.0-rc.68",
     "fast-memoize": "^2.5.1",
     "fela": "^10.8.0",
     "fela-plugin-embedded": "^10.8.0",
@@ -21,7 +25,8 @@
     "lodash": "^4.17.15",
     "object-assign": "^4.1.1",
     "prop-types": "^15.7.2",
-    "react-fela": "^10.8.0"
+    "react-fela": "^10.8.0",
+    "sharp": "^0.23.2"
   },
   "peerDependencies": {
     "react": "^16.11.0",

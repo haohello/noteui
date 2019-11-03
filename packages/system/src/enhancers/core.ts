@@ -118,7 +118,7 @@ export const createParser = (config: ParserConfig): StyleFn => {
         continue
       }
   
-      assign(styles, sxFunc(sx.properties, sx.transform, raw, scale, styleParam))
+      assign(styles, sxFunc(sx.properties, sx.isVariant, sx.transform, raw, scale, styleParam))
     }
   
     // sort object-based responsive styles
@@ -148,11 +148,11 @@ const parseResponsiveStyle = (
   sx: ConfigStyleEx, 
   scale: ResponsiveValue<TLengthStyledSystem>, 
   raw: ResponsiveArrayValue<string | number>, 
-  _props: ParserProps): CSS.Properties => {
+  styleParam: ComponentStyleFunctionParam): CSS.Properties => {
   let styles: CSS.Properties = {}
   raw.slice(0, mediaQueries.length).forEach((value, i) => {
     const media = mediaQueries[i]
-    const style = sxFunc(sx.properties, sx.transform, value, scale, _props)
+    const style = sxFunc(sx.properties, sx.isVariant, sx.transform, value, scale, styleParam)
     if (!media) {
       assign(styles, style)
     } else {
@@ -169,12 +169,12 @@ const parseResponsiveObject = (
   sx: ConfigStyleEx, 
   scale: ResponsiveValue<TLengthStyledSystem>, 
   raw: ResponsiveObjectValue<string | number>, 
-  _props: ParserProps): CSS.Properties => {
+  styleParam: ComponentStyleFunctionParam): CSS.Properties => {
   let styles: CSS.Properties = {}
   for (let key in raw) {
     const breakpoint = breakpoints[key]
     const value = raw[key]
-    const style = sxFunc(sx.properties, sx.transform, value, scale, _props)
+    const style = sxFunc(sx.properties, sx.isVariant, sx.transform, value, scale, styleParam)
     if (!breakpoint) {
       assign(styles, style)
     } else {
@@ -189,13 +189,15 @@ const parseResponsiveObject = (
 
 const sxFunc: SxFn = (
   properties: Array<keyof CSS.Properties>, 
+  isVariant: boolean = false,
   transform: TransformFn, 
   value: TLengthStyledSystem, 
   scale: ResponsiveValue<TLengthStyledSystem>, 
-  _props: ParserProps): CSS.Properties => {
-  const result: CSS.Properties = {}
-  const n = transform(value, scale, _props)
+  styleParam: ComponentStyleFunctionParam): CSS.Properties => {
+  const n = transform(value, scale, styleParam)
   if (n === null) return undefined
+  if (isVariant) return n
+  const result: CSS.Properties = {}
   properties.forEach(prop => {
     result[prop] = n
   })
@@ -204,6 +206,7 @@ const sxFunc: SxFn = (
 
 export const createStyleFunction = ({
   properties,
+  isVariant = false,
   property,
   scale,
   transform = getValue,
@@ -212,6 +215,7 @@ export const createStyleFunction = ({
   properties = properties || [property]
   return {
     properties,
+    isVariant,
     scale,
     transform,
     defaults: defaultScale

@@ -1,6 +1,8 @@
-import { get, createParser } from './core'
+import { get, createParser, createStyleFunction } from './core'
+import * as CSSType from 'csstype'
 import css from './css'
 import { VariantArgs, StyleFn } from './types'
+import { ComponentStyleFunctionParam } from '../themes/types'
 
 export const variant = ({
   scale,
@@ -12,14 +14,21 @@ export const variant = ({
 }: VariantArgs): StyleFn => {
   let sx
   if (Object.keys(variants).length) {
-    sx = (value, scale, props) => css(get(scale, value, null))(props.theme)
+    sx = (value, scale, styleParam: ComponentStyleFunctionParam) => css(get(scale, value, null))(styleParam)
   } else {
     sx = (value, scale) => get(scale, value, null)
   }
-  sx.scale = scale || key
-  sx.defaults = variants
+  // sx.properties = [scale || key]
+  // sx.scale = scale || key
+  // sx.defaults = variants
   const config = {
-    [prop]: sx,
+    [prop]: createStyleFunction({
+      property: (scale || key)  as keyof CSSType.Properties,
+      isVariant: true,
+      scale: scale || key,
+      transform: sx,
+      defaultScale: variants
+    }),
   }
   const parser = createParser(config)
   return parser

@@ -5,10 +5,13 @@
     "packages/*"
   ],
   "devDependencies": {
+    "@types/jest": "^24.0.21",
     "@types/material-ui": "^0.21.7",
     "beachball": "^1.14.1",
+    "jest": "^24.9.0",
     "lerna": "^3.16.4",
     "rimraf": "^3.0.0",
+    "ts-jest": "^24.1.0",
     "typescript": "^3.6.4"
   }
 }

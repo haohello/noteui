@@ -1,0 +1,44 @@
+---
+name: Box
+route: /
+---
+
+import { Playground, Props } from 'docz'
+import { Provider } from './Provider/'
+import { default as Box } from './box'
+
+
+# Box and Styled-System
+
+<Props of={Box} />
+
+## Basic usage
+
+Use styled-system style props to style the component
+
+<Playground>
+  <Provider theme={{}}>
+    <Box color="black" bg="red" height="300px" border='10px solid gold' p='15px'>
+      Red Box
+    </Box>
+  </Provider>
+</Playground>
+
+## Inline styles prop
+
+Inline styles prop also supports the styled system, that means you can use it to achieve the responsive styling
+
+<Playground>
+  <Provider theme={{}}>
+    <Box styles={{
+      bg: '#000',
+      px: '15px',
+      py: '15px',
+      color: '#fff',
+      height: '300px',
+      fontSize: [4, 5, 6],
+    }}>
+      Black Box
+    </Box>
+  </Provider>
+</Playground>

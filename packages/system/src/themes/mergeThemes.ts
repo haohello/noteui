@@ -18,6 +18,8 @@ import {
   ThemeIcons,
   ComponentSlotStyle,
   ThemeAnimation,
+  ObjectOf,
+  ComponentSlotStyleFunction,
 } from './types'
 import toCompactArray from '../utils/toCompactArray'
 import deepmerge from '../utils/deepmerge'
@@ -48,7 +50,7 @@ export const emptyTheme: ThemePrepared = {
  * Merges a single component's styles (keyed by component part) with another component's styles.
  */
 export const mergeComponentStyles__PROD = (
-  ...sources: (ComponentSlotStylesInput | null | undefined)[]
+  ...sources: (ComponentSlotStylesInput | ComponentSlotStyleFunction | null | undefined)[]
 ): ComponentSlotStylesPrepared => {
   const initial: ComponentSlotStylesPrepared = {}
 

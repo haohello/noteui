@@ -10,6 +10,7 @@
     "beachball": "^1.14.1",
     "jest": "^24.9.0",
     "lerna": "^3.16.4",
+    "react-test-renderer": "^16.11.0",
     "rimraf": "^3.0.0",
     "ts-jest": "^24.1.0",
     "typescript": "^3.6.4"

@@ -1,4 +1,5 @@
-import { ComponentStyleFunctionParam } from '../themes/types'
+import * as CSSType from 'csstype'
+import { ComponentStyleFunctionParam, ComponentSlotStylesInput, ComponentSlotStylesPrepared, ComponentSlotStyleFunction } from '../themes/types'
 import { buildEmptyThemeFn, buildStyleParamFn } from '../themes/util'
 import { merge } from './core'
 
@@ -180,7 +181,7 @@ export const responsive = styles => (styleParam: ComponentStyleFunctionParam) =>
   return next
 }
 
-export const css = args => (styleParam: ComponentStyleFunctionParam) => {
+export const css = (args): ComponentSlotStyleFunction => (styleParam: ComponentStyleFunctionParam): CSSType.Properties => {
   if (!styleParam) {
     const theme = buildEmptyThemeFn()
     styleParam = buildStyleParamFn({},theme, theme.siteVariables)
